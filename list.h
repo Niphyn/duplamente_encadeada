@@ -4,12 +4,19 @@
 
 #include "node.h"
 
+typedef unsigned int bool;
+
 typedef struct
 {
     Node *head;
     Node *last;
     int size;
 } List;
+
+typedef struct
+{
+    Node *current;
+} ListIterator;
 
 /**
  * @brief Construct a new double linked list object
@@ -64,6 +71,16 @@ void list_push_back(List *l, data_type data);
  *
  */
 void list_print(List *l, void (*print_fn)(data_type));
+
+/**
+ * @brief Print the elements of the double linked list in reverse order.
+ * Print the elements of the double linked list in reverse order.
+ * @param l
+ * Pointer to the double linked list.
+ * @param print_fn
+ * Pointer to the function to print data_type values.
+ */
+void list_print_reverse(List *l, void (*print_fn)(data_type));
 
 /**
  * @brief Returns the data stored in the node at the given index.
@@ -160,5 +177,56 @@ void list_sort(List *l);
  *
  */
 void list_destroy(List *l);
+
+/**
+ * @brief Returns an iterator to the first node of the double linked list.
+ * @param l
+ * Pointer to the double linked list.
+ * @return ListIterator*
+ * Pointer to the iterator.
+ */
+ListIterator *list_front_iterator(List *l);
+
+/**
+ * @brief Returns an iterator to the last node of the double linked list.
+ * @param l
+ * Pointer to the double linked list.
+ * @return ListIterator*
+ * Pointer to the iterator.
+ */
+ListIterator *list_back_iterator(List *l);
+
+/**
+ * @brief Returns the data stored in the node and updates the iterator to point to the next node.
+ * @param it
+ * Pointer to the iterator.
+ * @return data_type*
+ * Pointer to the data stored in the current node.
+ */
+data_type *list_iterator_next(ListIterator *it);
+
+/**
+ * @brief Returns the data stored in the node and updates the iterator to point to the previous node.
+ * @param it
+ * Pointer to the iterator.
+ * @return data_type*
+ * Pointer to the data stored in the current node.
+ */
+data_type *list_iterator_previous(ListIterator *it);
+
+/**
+ * @brief Returns true if the iterator is over.
+ * @param it
+ * Pointer to the iterator.
+ * @return 1 if the iterator is over, and 0 otherwise.
+ */
+bool list_iterator_is_over(ListIterator *it);
+
+/**
+ * @brief Free the memory allocated to the iterator.
+ * @param it
+ * Pointer to the iterator.
+ */
+void list_iterator_destroy(ListIterator *it);
 
 #endif
